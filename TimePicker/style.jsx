@@ -9,14 +9,15 @@ const useStyles = makeStyles(theme => ({
   },
   tooltip: {
     position: 'absolute',
-    top: '35px',
+    top: '8px',
     left: '-23px',
     display: 'flex',
     padding: '12px',
     background: '#FFFFFF',
     borderRadius: '10px',
     boxShadow: '0px 0px 6px rgba(0, 0, 0, 0.1)',
-    zIndex: '1'
+    zIndex: '1',
+    fontFamily: '"Roboto", sans-serif'
   },
   hidden: {
     display: 'none'
@@ -58,6 +59,16 @@ const useStyles = makeStyles(theme => ({
     background: ' #fff',
     transform: 'rotate(45deg)',
     boxShadow: '-4px -4px 6px rgba(0, 0, 0, 0.1)',
+  },
+  duoRadius: {
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: '25px',
+    position: 'relative',
+    left: '-10px',
+    top: '-4px',
+    lineHeight: '0',
+    width: '0',
   }
 }));
 

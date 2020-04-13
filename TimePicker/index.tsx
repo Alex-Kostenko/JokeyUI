@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
-import classNames from 'classnames';
+import { Dropdown } from 'antd';
 
 import useStyles from './style.jsx';
 
@@ -17,8 +17,8 @@ interface TimePropsType {
 }
 
 const CustomTimePicker: React.FC<TimePropsType & RouteComponentProps> = (props: any) => {
-  const { onChange, value } = props;
   const [open, setOpen] = useState<boolean>(false);
+  const { onChange, value } = props;
   const [time, setTime] = useState<TimeType>({
     h: 12,
     m: 0,
@@ -119,30 +119,41 @@ const CustomTimePicker: React.FC<TimePropsType & RouteComponentProps> = (props: 
 
   return (
     <div className={classes.root}>
-      <div onClick={() => setOpen(!open)}>
-        {`${time.h}:${renderMibutes(time.m)} ${time.meridiem}`}
-      </div>
-      <div className={classNames(open ? classes.tooltip : classes.hidden)}>
-        <div className={classes.angle}> </div>
-        <div className={classes.col}>
-          <CaretUpOutlined className={classes.icon} onClick={() => changeTime('h', 'up')} />
-          {time.h}
-          <CaretDownOutlined className={classes.icon} onClick={() => changeTime('h', 'down')} />
-        </div>
-        <div className={classes.col}>
-          <CaretUpOutlined className={classes.icon} onClick={() => changeTime('m', 'up')} />
-          {renderMibutes(time.m)}
-          <CaretDownOutlined className={classes.icon} onClick={() => changeTime('m', 'down')} />
-        </div>
-        <div className={classes.col}>
-          <CaretUpOutlined className={classes.icon} onClick={() => changeTime('meridiem', 'up')} />
-          {time.meridiem}
-          <CaretDownOutlined
-            className={classes.icon}
-            onClick={() => changeTime('meridiem', 'down')}
-          />
-        </div>
-      </div>
+      <Dropdown
+        onVisibleChange={() => setOpen(!open)}
+        visible={open}
+        trigger={['click']}
+        overlay={
+          <div className={classes.tooltip}>
+            <div className={classes.angle}> </div>
+            <div className={classes.col}>
+              <CaretUpOutlined className={classes.icon} onClick={() => changeTime('h', 'up')} />
+              {time.h}
+              <CaretDownOutlined className={classes.icon} onClick={() => changeTime('h', 'down')} />
+            </div>
+            <div className={classes.duoRadius}>:</div>
+            <div className={classes.col}>
+              <CaretUpOutlined className={classes.icon} onClick={() => changeTime('m', 'up')} />
+              {renderMibutes(time.m)}
+              <CaretDownOutlined className={classes.icon} onClick={() => changeTime('m', 'down')} />
+            </div>
+            <div className={classes.col}>
+              <CaretUpOutlined
+                className={classes.icon}
+                onClick={() => changeTime('meridiem', 'up')}
+              />
+              {time.meridiem}
+              <CaretDownOutlined
+                className={classes.icon}
+                onClick={() => changeTime('meridiem', 'down')}
+              />
+            </div>
+          </div>
+        }
+        placement="bottomLeft"
+      >
+        <div>{`${time.h}:${renderMibutes(time.m)} ${time.meridiem}`}</div>
+      </Dropdown>
     </div>
   );
 };
